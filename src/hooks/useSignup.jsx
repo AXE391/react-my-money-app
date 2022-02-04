@@ -15,7 +15,7 @@ export const useSignup = () => {
 		setError(null);
 		setIsPending(true);
 		try {
-			// Sign up user with the email and password they entered in
+			// Sign up user with the email & password they entered in
 			// projectAuth has a method to sign the user up called "createUserWithEmailAndPassword", which takes two arguments: email and password. It sends back a response.
 			const res = await projectAuth.createUserWithEmailAndPassword(
 				email,
