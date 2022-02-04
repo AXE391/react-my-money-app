@@ -16,15 +16,17 @@ export const useSignup = () => {
 		setIsPending(true);
 		try {
 			// Sign up user with the email and password they entered in
+			// projectAuth has a method to sign the user up called "createUserWithEmailAndPassword", which takes two arguments: email and password. It sends back a response.
 			const res = await projectAuth.createUserWithEmailAndPassword(
 				email,
 				password
 			);
+			// If the response is bad, throw an error
 			if (!res) {
 				throw new Error("Could not complete signup");
 			}
 
-			// Add display name to user
+			// Add display name to user object that is returned.
 			await res.user.updateProfile({ displayName });
 
 			// Dispatch LOG_IN action
@@ -32,9 +34,11 @@ export const useSignup = () => {
 				type: "LOG_IN",
 				payload: res.user,
 			});
-
+			// reset pending and error states
 			setIsPending(false);
 			setError(null);
+
+			// Catch error if there is one and reset error and pending states
 		} catch (err) {
 			console.log(err.message);
 			setError(err.message);
